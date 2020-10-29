@@ -14,7 +14,6 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-
 ;; Lexical bindings
 (setq safe-local-variable-values '((lexical-bindings . t)))
 

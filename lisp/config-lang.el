@@ -1,4 +1,4 @@
-;;; config-lang.el --- Programming language tools -*- lexical-bindings:t -*-
+;;; config-lang.el --- Language tools -*- lexical-bindings:t -*-
 
 ;;; Code:
 (require 'straight)
@@ -13,6 +13,13 @@
 	company-minimum-prefix-length     2
 	)
   )
+
+(setq company-backends
+      '((company-files          ; files & directory
+         company-keywords       ; keywords
+         company-capf
+         company-yasnippet)
+        (company-abbrev company-dabbrev company-dabbrev-code)))
 
 (straight-use-package 'company-box)
 (add-hook 'company-mode-hook #'company-box-mode)
@@ -33,8 +40,21 @@
 (straight-use-package 'yasnippet)
 (add-hook 'after-init-hook #'yas-global-mode)
 
+;; Enable yasnippet tab completion together with company
+(defun config/company-yasnippet-or-completion ()
+  (interactive)
+  (let ((yas-fallback-behavior nil))
+    (unless (yas-expand)
+      (call-interactively #'company-complete-common))))
+
+(add-hook 'company-mode-hook (lambda ()
+  (substitute-key-definition 'company-complete-common
+                             'config/company-yasnippet-or-completion
+                             company-active-map)))
+
 (straight-use-package
- '(doom-snippets :type git :host github :repo "hlissner/doom-snippets"))
+ '(doom-snippets :type git :host github :repo "hlissner/doom-snippets"
+		 :files ("*" (:exclude ".gitignore" ".editorconfig" "LICENSE" "README.md"))))
 
 (provide 'config-lang)
 ;;; config-lang.el ends here
