@@ -33,6 +33,8 @@
 (straight-use-package 'yasnippet)
 (add-hook 'after-init-hook #'yas-global-mode)
 
+(straight-use-package
+ '(doom-snippets :type git :host github :repo "hlissner/doom-snippets"))
 
 (provide 'config-lang)
 ;;; config-lang.el ends here

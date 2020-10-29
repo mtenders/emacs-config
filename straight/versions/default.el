@@ -4,6 +4,7 @@
  ("crux" . "139eb6f1504b6885c86c658fd33c6d59bfac0a8c")
  ("dash.el" . "0f238a9a466879ee96e5db0482019453718f342d")
  ("doom-modeline" . "86d91e891b7d587b6680b19eda5ce2ca3df5b0ab")
+ ("doom-snippets" . "d97c65eec3ba9a920432761acdcd8b5e851c9c0d")
  ("eglot" . "f9a11fe2d1b491fde8b4f1815575de7c890d7b38")
  ("eglot-jl" . "84cff9d6ef1643f3eac6c9d620cc1e380a9847d9")
  ("eldoc" . "2506b8a5a7c3eed6f80ac3e066a68e6f4c5af5ad")
