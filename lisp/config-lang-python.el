@@ -18,8 +18,8 @@
     (setq python-shell-interpreter "python")))
  ((string-equal system-type "darwin")
   (progn
-    (setq elpy-rpc-python-command "/usr/local/bin/python3")
-    (setq python-shell-interpreter "/usr/local/bin/python3"))))
+    (setq elpy-rpc-python-command "/usr/local/bin/python3.8")
+    (setq python-shell-interpreter "/usr/local/bin/python3.8"))))
 
 (provide 'config-lang-python)
 ;;; config-lang-python ends here
