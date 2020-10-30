@@ -10,7 +10,12 @@
 (straight-use-package 'jupyter)
 
 ;;* Julia babel from org-plus-contrib
-(setq inferior-julia-program-name "/usr/bin/julia")
+(cond
+ ((string-equal system-type "gnu/linux")
+  (setq inferior-julia-program-name "/usr/bin/julia"))
+ ((string-equal system-type "darwin")
+  (setq inferior-julia-program-name "/usr/local/bin/julia")))
+
 (require 'ob-julia)
 
 ;;* babel config
