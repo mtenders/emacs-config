@@ -14,6 +14,12 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+;; EXWM
+;; (straight-use-package 'exwm)
+;; (require 'exwm)
+;; (require 'exwm-config)
+;; (exwm-config-default)
+
 ;; Lexical bindings
 (setq safe-local-variable-values '((lexical-bindings . t)))
 
