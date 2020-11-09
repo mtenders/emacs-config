@@ -9,6 +9,9 @@
 ;;* Fish mode
 (straight-use-package 'fish-mode)
 
+;;* Gnuplot
+(straight-use-package 'gnuplot)
+
 ;;* Figlet
 (require 'figlet)
 
