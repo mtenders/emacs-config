@@ -27,7 +27,8 @@
    (julia . t)
    (latex . t)
    (gnuplot . t)
-   (jupyter . t)))
+   (jupyter . t)
+   (arduino .t)))
 ;; Show images
 (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images)
 ;; Switch off confirmation
