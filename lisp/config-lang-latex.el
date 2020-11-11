@@ -2,6 +2,8 @@
 
 ;;; Code:
 
+(straight-use-package 'auctex)
+
 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
 
 (setq TeX-parse-self t ; Enable parse on load.

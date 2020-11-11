@@ -1,5 +1,6 @@
 (("Highlight-Indentation-for-Emacs" . "d03803f2c06749c430443a3d24e039cbafc9c58f")
  ("all-the-icons.el" . "6917b08f64dd8487e23769433d6cb9ba11f4152f")
+ ("auctex" . "fb062a364fbc7d791707ff574b0f0a7f4c7a7269")
  ("company-box" . "be37a9a30dc112ab172af21af694e2cb04a74f85")
  ("company-mode" . "dd925936f7c0bf00319c81e8caea1b3db63bb8b5")
  ("crux" . "139eb6f1504b6885c86c658fd33c6d59bfac0a8c")
