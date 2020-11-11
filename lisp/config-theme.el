@@ -11,13 +11,6 @@
 ;; Correct (and improve) org-mode's native fontification.
 (doom-themes-org-config)
 
-;;* Change font depending on OS
-(cond
- ((string-equal system-type "gnu/linux")
-    (set-face-attribute 'default nil :family "Hack" :height 100))
- ((string-equal system-type "darwin")
-    (set-face-attribute 'default nil :family "Hack" :height 120)))
-
 ;;* Load icons
 (straight-use-package 'all-the-icons)
 
@@ -32,12 +25,6 @@
 (straight-use-package 'doom-modeline)
 (doom-modeline-mode 1)
 
-;;* Remove unnecessary UI elements
-;; Disable menu bar, tool bar, scroll bar & fringes
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(fringe-mode -1)
 ;; Show battery in modeline
 (display-battery-mode 1)
 ;; Show line numbers on the side
