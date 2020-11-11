@@ -31,6 +31,7 @@
  ("frame-local" . "7ee1106c3bcd4022f48421f8cb1ef4f995da816e")
  ("general.el" . "a0b17d207badf462311b2eef7c065b884462cb7c")
  ("gnu-elpa-mirror" . "6a1561f5e75ff52398db79d231eca3ea29e1b67c")
+ ("gnuplot" . "f0001c30010b2899e36d7d89046322467e923088")
  ("haskell-mode" . "e72677668f5fc7cc148008e885a0f256e245dd43")
  ("helm" . "5ad6c83681fda7bfd5a745fedecaa924630253dd")
  ("jsonrpc" . "ef33cf7832a3fcc5134f9e54429b37e1da022e13")
