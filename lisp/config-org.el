@@ -16,15 +16,12 @@
  ((string-equal system-type "darwin")
   (setq inferior-julia-program-name "/usr/local/bin/julia")))
 
-(require 'ob-julia)
-
 ;;* babel config
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
    (shell . t)
    (python . t)
-   (julia . t)
    (latex . t)
    (gnuplot . t)
    (jupyter . t)

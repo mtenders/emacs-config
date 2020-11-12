@@ -14,7 +14,7 @@
 (require 'config-theme)
 (require 'config-tools)
 (require 'config-git)
-(require 'config-org)
+;; (require 'config-org)
 (require 'config-lang)
 (require 'config-lang-julia)
 (require 'config-lang-python)
