@@ -7,7 +7,7 @@
 (straight-use-package 'org-plus-contrib)
 
 ;;* Jupyter
-(straight-use-package 'jupyter)
+(straight-use-package 'jupyter :no-native-compile t)
 
 ;;* Julia babel from org-plus-contrib
 (cond
@@ -27,7 +27,8 @@
    (julia . t)
    (latex . t)
    (gnuplot . t)
-   (jupyter . t)))
+   (jupyter . t)
+   ))
 ;; Show images
 (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images)
 ;; Switch off confirmation

@@ -12,6 +12,9 @@
 ;;* Gnuplot
 (straight-use-package 'gnuplot)
 
+;;* Emacs start up profiler
+(straight-use-package 'esup)
+
 ;;* Figlet
 (require 'figlet)
 
