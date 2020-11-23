@@ -18,5 +18,8 @@
 ;;* Figlet
 (require 'figlet)
 
+;;* Leo
+(straight-use-package 'leo)
+
 (provide 'config-tools)
 ;;; config-tools.el ends here

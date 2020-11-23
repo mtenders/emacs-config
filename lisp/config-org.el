@@ -24,7 +24,7 @@
    (python . t)
    (latex . t)
    (gnuplot . t)
-   (jupyter . t)
+   ;; (jupyter . t) ;; cant find ob-jupyter
    ))
 ;; Show images
 (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images)
