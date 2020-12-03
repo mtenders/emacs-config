@@ -19,7 +19,13 @@
 (require 'figlet)
 
 ;;* Leo
-(straight-use-package 'leo)
+;; HACK this package is part of melpa, but I didn't
+;; manage to change just the branch to "main" from
+;; the default "master".
+(straight-use-package
+ '(leo :host github :repo "mtenders/emacs-leo" :branch "main"))
+
+
 
 (provide 'config-tools)
 ;;; config-tools.el ends here
