@@ -21,12 +21,15 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(fringe-mode -1)
+
+;; Disable startup screen
+(setq inhibit-startup-screen t)
 
 ;; Change font depending on OS
 (cond
  ((string-equal system-type "gnu/linux")
-    (set-face-attribute 'default nil :family "Hack" :height 100))
+  ;; https://greatscott.se/fonts/alma-mono
+    (set-face-attribute 'default nil :family "Noto Mono" :height 100))
  ((string-equal system-type "darwin")
     (set-face-attribute 'default nil :family "Hack" :height 120)))
 
