@@ -1,4 +1,49 @@
-;; -*- lexical-binding: t; -*-
+;;; init.el --- My init file  -*- lexical-binding: t; -*-
+
+;;; Commentary:
+
+;;------------------------------------------------------------------------------
+;; ToDo
+;;  - company
+;;  - julia snail
+;;------------------------------------------------------------------------------
+
+;;------------------------------------------------------------------------------
+;; FUNCTIONS
+;;------------------------------------------------------------------------------
+
+;;; Code:
+
+(defun me/comment-section ()
+  "Print fancy comment section."
+  (interactive)
+  (let ((seperator (make-string 78 ?-)))
+    (insert
+     (concat "\n"
+	     ";;" seperator "\n"
+	     ";; \n"
+	     ";;" seperator
+	     "\n"))
+    (forward-line -2)
+    (end-of-line)))
+
+(defun find-user-init-file ()
+  "Edit the `user-init-file'."
+  (interactive)
+  (find-file user-init-file))
+
+;;------------------------------------------------------------------------------
+;; PACKAGE MANAGMENT
+;;------------------------------------------------------------------------------
+
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
+;; Make sure to defer as many packages as possible.
+(setq use-package-always-defer t)
+
+;;------------------------------------------------------------------------------
+;; CHANGING DEFAULTS
+;;------------------------------------------------------------------------------
 
 ;; Lexical bindings
 (setq safe-local-variable-values '((lexical-bindings . t)))
@@ -19,59 +64,125 @@
       kept-old-versions 2
       version-control t)
 
+;; Navigating Emacs
+(use-package counsel
+  :init (ivy-mode 1)
+  :bind
+  (("C-s" . #'swiper-isearch)
+   ("M-x" . #'counsel-M-x)
+   ("C-x C-f" . #'counsel-find-file)
+   ("M-y" . #'counsel-yank-pop)
+   ("<f1> f" . #'counsel-describe-function)
+   ("<f1> v" . #'counsel-describe-variable)
+   ("<f1> l" . #'counsel-find-library)
+   ("<f2> i" . #'counsel-info-lookup-symbol)
+   ("<f2> u" . #'counsel-unicode-char)
+   ("<f2> j" . #'counsel-set-variable)
+   ("C-x b" . #'ivy-switch-buffer)
+   ("C-c v" . #'ivy-push-view)
+   ("C-c V" . #'ivy-pop-view)))
 
-;;;  Package management
-(straight-use-package 'use-package)
-(setq straight-use-package-by-default t)
+(use-package which-key
+  :init (which-key-mode))
 
+;; Highlight matching parentheses.
+(show-paren-mode 1)
 
-;;; Theme
+;;; Prevent Extraneous Tabs
+(setq-default indent-tabs-mode nil)
+
+;; Use y or n not yes or no.
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;;------------------------------------------------------------------------------
+;; APPEARANCE
+;;------------------------------------------------------------------------------
+
+;; Theme
 (use-package doom-themes
+  :demand t
   :config
   ;; Global settings
   (setq doom-themes-enable-bold t
 	doom-themes-enable-italic t)
   (load-theme 'doom-dracula t))
 
-;;; Auto-fill
 ;; Right margin for automatic linebreaks
 (setq-default fill-column 80)
 ;; Automatic line breaks in prog-mode
 (add-hook 'prog-mode-hook #'turn-on-auto-fill)
 
+;;------------------------------------------------------------------------------
+;; SYNTAX CHECKING
+;;------------------------------------------------------------------------------
 
-;; Init.el shortcut
-(defun find-user-init-file ()
-  "Edit the `user-init-file'."
-  (interactive)
-  (find-file user-init-file))
+(use-package flycheck
+  :init (global-flycheck-mode))
 
-;;* General key bindings
+(use-package flycheck-package
+  :after flycheck
+  :config (flycheck-package-setup))
 
-(global-set-key (kbd "C-c I") #'find-user-init-file)
-(global-set-key (kbd "C-c ;") #'comment-or-uncomment-region)
-(global-set-key (kbd "M-o")   #'other-window)
+;;------------------------------------------------------------------------------
+;; TERMINAL
+;;------------------------------------------------------------------------------
 
-(use-package counsel
-  :init (ivy-mode 1)
-  :bind
-  (
-   ("C-s" . 'swiper-isearch)
-   ("M-x" . 'counsel-M-x)
-   ("C-x C-f" . 'counsel-find-file)
-   ("M-y" . 'counsel-yank-pop)
-   ("<f1> f" . 'counsel-describe-function)
-   ("<f1> v" . 'counsel-describe-variable)
-   ("<f1> l" . 'counsel-find-library)
-   ("<f2> i" . 'counsel-info-lookup-symbol)
-   ("<f2> u" . 'counsel-unicode-char)
-   ("<f2> j" . 'counsel-set-variable)
-   ("C-x b" . 'ivy-switch-buffer)
-   ("C-c v" . 'ivy-push-view)
-   ("C-c V" . 'ivy-pop-view)))
+(use-package vterm
+  :config (setq vterm-shell "fish"))
 
-(use-package which-key
-  :init (which-key-mode))
+;;------------------------------------------------------------------------------
+;; JULIA
+;;------------------------------------------------------------------------------
+
+(use-package julia-snail
+  :requires vterm)
+
+(use-package julia-mode
+  :hook (julia-mode . julia-snail-mode))
+
+;;  :hook julia-mode);;(julia-mode . julia-snail-mode))
+
+;;------------------------------------------------------------------------------
+;; PYTHON
+;;------------------------------------------------------------------------------
+
+(use-package elpy
+  :init (elpy-enable) ; slows down startup :/
+  :config
+  (setq python-shell-interpreter "ipython"
+        python-shell-interpreter-args "--simple-prompt -i"))
+
+;;------------------------------------------------------------------------------
+;; GIT
+;;------------------------------------------------------------------------------
+
+(use-package magit
+  :bind ("C-x g" . #'magit))
+
+;;------------------------------------------------------------------------------
+;; LANGUAGES
+;;------------------------------------------------------------------------------
 
 (use-package leo
   :straight (leo :host github :repo "mtenders/emacs-leo" :branch "main"))
+
+;;------------------------------------------------------------------------------
+;; KEYBINDINGS
+;;
+;; Keybindings for specific packages are defind using the :bind keyword from
+;; use-package.
+;;
+;; All other keybindings for builtin/custom functions are defined here.
+;;------------------------------------------------------------------------------
+
+;; Global key bindings
+(global-set-key (kbd "C-c I") #'find-user-init-file)
+(global-set-key (kbd "C-c ;") #'comment-or-uncomment-region)
+(global-set-key (kbd "M-o")   #'other-window)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; Emacs Lisp
+(define-key emacs-lisp-mode-map (kbd "C-c C-s") #'me/comment-section)
+
+(provide 'init)
+;;; init.el ends here

@@ -1,5 +1,9 @@
 ;;; early-init.el --- Early init file
 
+;;; Commentary:
+
+;;; Code:
+
 ;; Disable package.el
 (setq package-enable-at-startup nil)
 
@@ -29,7 +33,7 @@
 (cond
  ((string-equal system-type "gnu/linux")
   ;; https://greatscott.se/fonts/alma-mono
-    (set-face-attribute 'default nil :family "Noto Mono" :height 100))
+    (set-face-attribute 'default nil :family "Hack" :height 100))
  ((string-equal system-type "darwin")
     (set-face-attribute 'default nil :family "Hack" :height 120)))
 
