@@ -5,7 +5,10 @@
 ;;------------------------------------------------------------------------------
 ;; ToDo
 ;;  - company
-;;  - julia snail
+;;    - faster popup
+;;    - documentation window? (julia, python)
+;;    - integrate into python
+;;    - C-n, C-p for switching
 ;;------------------------------------------------------------------------------
 
 ;;------------------------------------------------------------------------------
@@ -80,7 +83,11 @@
    ("<f2> j" . #'counsel-set-variable)
    ("C-x b" . #'ivy-switch-buffer)
    ("C-c v" . #'ivy-push-view)
-   ("C-c V" . #'ivy-pop-view)))
+   ("C-c V" . #'ivy-pop-view))
+  :config
+  (setq ivy-use-virtual-buffers t
+        ivy-count-format "(%d/%d) "
+        ivy-initial-inputs-alist nil)) ; remove initial ^ input.
 
 (use-package which-key
   :init (which-key-mode))
@@ -113,6 +120,20 @@
 (add-hook 'prog-mode-hook #'turn-on-auto-fill)
 
 ;;------------------------------------------------------------------------------
+;; AUTOCOMPLETION
+;;------------------------------------------------------------------------------
+
+(use-package company
+  :init
+  (add-hook 'prog-mode-hook #'company-mode)
+  :config
+  (setq company-backends
+      '((company-files          ; files & directory
+         company-keywords       ; keywords
+         company-capf)
+        (company-abbrev company-dabbrev company-dabbrev-code))))
+
+;;------------------------------------------------------------------------------
 ;; SYNTAX CHECKING
 ;;------------------------------------------------------------------------------
 
@@ -140,17 +161,21 @@
 (use-package julia-mode
   :hook (julia-mode . julia-snail-mode))
 
-;;  :hook julia-mode);;(julia-mode . julia-snail-mode))
-
 ;;------------------------------------------------------------------------------
 ;; PYTHON
 ;;------------------------------------------------------------------------------
 
 (use-package elpy
-  :init (elpy-enable) ; slows down startup :/
+  :init
+  (advice-add 'python-mode :before 'elpy-enable)
+  ;; (add-hook 'python-mode-hook
+  ;;           (lambda ()
+  ;;             (add-to-list 'company-backends
+  ;;                          'elpy-company-backend)))
   :config
   (setq python-shell-interpreter "ipython"
-        python-shell-interpreter-args "--simple-prompt -i"))
+        python-shell-interpreter-args "--simple-prompt -i")
+  )
 
 ;;------------------------------------------------------------------------------
 ;; GIT
