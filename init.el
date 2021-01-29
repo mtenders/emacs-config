@@ -5,10 +5,12 @@
 ;;------------------------------------------------------------------------------
 ;; ToDo
 ;;  - company
-;;    - faster popup
 ;;    - documentation window? (julia, python)
 ;;    - integrate into python
-;;    - C-n, C-p for switching
+;;  - yas-snippet
+;;    - only run in prog-mode
+;;  - Make more visible when selected. Doom modeline?
+;;  - Font with icons
 ;;------------------------------------------------------------------------------
 
 ;;------------------------------------------------------------------------------
@@ -101,6 +103,12 @@
 ;; Use y or n not yes or no.
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; scroll one line at a time (less "jumpy" than defaults)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)) ;; one line at a time
+      mouse-wheel-progressive-speed nil ;; don't accelerate scrolling
+      mouse-wheel-follow-mouse 't ;; scroll window under mouse
+      scroll-step 1) ;; keyboard scroll one line at a time
+
 ;;------------------------------------------------------------------------------
 ;; APPEARANCE
 ;;------------------------------------------------------------------------------
@@ -126,12 +134,48 @@
 (use-package company
   :init
   (add-hook 'prog-mode-hook #'company-mode)
+  :bind (:map company-active-map
+              ("C-n" . company-select-next-or-abort)
+              ("C-p" . company-select-previous-or-abort))
   :config
   (setq company-backends
       '((company-files          ; files & directory
          company-keywords       ; keywords
-         company-capf)
-        (company-abbrev company-dabbrev company-dabbrev-code))))
+         company-capf
+         company-yasnippet)
+        (company-abbrev company-dabbrev company-dabbrev-code)))
+  ; No delay in showing suggestions.
+  (setq company-idle-delay 0
+        company-minimum-prefix-length 1
+        company-selection-wrap-around t))
+
+(use-package yasnippet
+  :init
+  (add-hook 'prog-mode-hook #'yas-minor-mode)
+  :config
+  ;; Enable yasnippet tab completion together with company
+  (defun config/company-yasnippet-or-completion ()
+    (interactive)
+    (let ((yas-fallback-behavior nil))
+      (unless (yas-expand)
+        (call-interactively #'company-complete-common))))
+
+  (add-hook 'company-mode-hook
+            (lambda ()
+              (substitute-key-definition 'company-complete-common
+                                         'config/company-yasnippet-or-completion
+                                         company-active-map))))
+
+(use-package doom-snippets
+  :straight (doom-snippets :type git
+                           :host github
+                           :repo "hlissner/doom-snippets"
+		           :files ("*"
+                                   (:exclude
+                                    ".gitignore"
+                                    ".editorconfig"
+                                    "LICENSE"
+                                    "README.md"))))
 
 ;;------------------------------------------------------------------------------
 ;; SYNTAX CHECKING
@@ -176,6 +220,10 @@
   (setq python-shell-interpreter "ipython"
         python-shell-interpreter-args "--simple-prompt -i")
   )
+
+(use-package eglot
+  :config
+  (add-hook 'python-mode-hook #'eglot-ensure))
 
 ;;------------------------------------------------------------------------------
 ;; GIT
