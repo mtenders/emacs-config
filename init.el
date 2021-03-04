@@ -149,6 +149,9 @@
         company-minimum-prefix-length 1
         company-selection-wrap-around t))
 
+(use-package company-box
+  :hook (company-mode . company-box-mode))
+
 (use-package yasnippet
   :init
   (add-hook 'prog-mode-hook #'yas-minor-mode)
@@ -208,7 +211,9 @@
 ;;------------------------------------------------------------------------------
 
 (use-package nix-mode
-  :mode "\\.nix\\'")
+  :mode "\\.nix\\'"
+  :bind (:map nix-mode-map
+              ("C-c f" . nix-format-buffer)))
 
 (use-package nix-update
   :commands nix-update-fetch)
@@ -242,6 +247,9 @@
 (use-package eglot
   :config
   (add-hook 'python-mode-hook #'eglot-ensure))
+
+;; Python code formatter
+(use-package blacken)
 
 
 ;;------------------------------------------------------------------------------
