@@ -122,6 +122,11 @@
 	doom-themes-enable-italic t)
   (load-theme 'doom-dracula t))
 
+;; Modeline
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
+
 ;; Right margin for automatic linebreaks
 (setq-default fill-column 80)
 ;; Automatic line breaks in prog-mode
