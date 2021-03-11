@@ -9,7 +9,6 @@
 ;;    - integrate into python
 ;;  - yas-snippet
 ;;    - only run in prog-mode
-;;  - Make more visible when selected. Doom modeline?
 ;;  - Font with icons
 ;;------------------------------------------------------------------------------
 
