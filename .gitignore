@@ -7,3 +7,4 @@
 !straight/
 straight/*
 !straight/versions/
+!reveal.js/
