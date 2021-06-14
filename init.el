@@ -276,6 +276,21 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
+
+;;------------------------------------------------------------------------------
+;; LATEX
+;;------------------------------------------------------------------------------
+
+(use-package auctex
+  :bind (:map LaTeX-mode-map
+              ("C-c C-g" #'pdf-sync-forward-search))
+  :config
+  (setq TeX-parse-self t ; Enable parse on load.
+      TeX-auto-save t ; Enable parse on save.
+      TeX-view-program-selection '((output-pdf "PDF Tools"))
+      TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
+      TeX-source-correlate-mode t))
+
 ;;------------------------------------------------------------------------------
 ;; GIT
 ;;------------------------------------------------------------------------------
