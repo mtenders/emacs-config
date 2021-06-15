@@ -281,15 +281,23 @@
 ;; LATEX
 ;;------------------------------------------------------------------------------
 
+(use-package pdf-tools
+  :init (pdf-tools-install))
+
 (use-package auctex
   :bind (:map LaTeX-mode-map
-              ("C-c C-g" #'pdf-sync-forward-search))
-  :config
+              ("C-c C-g" . pdf-sync-forward-search))
+  :init
+  ;; Update PDF buffers after successful LaTeX runs
+  (add-hook 'TeX-after-compilation-finished-functions
+            #'TeX-revert-document-buffer)
   (setq TeX-parse-self t ; Enable parse on load.
-      TeX-auto-save t ; Enable parse on save.
-      TeX-view-program-selection '((output-pdf "PDF Tools"))
-      TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
-      TeX-source-correlate-mode t))
+        TeX-auto-save t) ; Enable parse on save.
+  ;; Use pdf-tools to open PDF files
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+        TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
+        TeX-source-correlate-start-server t))
+
 
 ;;------------------------------------------------------------------------------
 ;; GIT
