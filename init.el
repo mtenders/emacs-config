@@ -21,12 +21,13 @@
 (defun me/comment-section ()
   "Print fancy comment section."
   (interactive)
-  (let ((seperator (make-string 78 ?-)))
+  (let ((seperator (make-string 78 ?-))
+        (comment-no-space (comment-string-strip comment-start 0 1)))
     (insert
      (concat "\n"
-	     ";;" seperator "\n"
-	     ";; \n"
-	     ";;" seperator
+	     comment-no-space comment-no-space seperator "\n"
+	     comment-no-space comment-no-space " \n"
+	     comment-no-space comment-no-space seperator
 	     "\n"))
     (forward-line -2)
     (end-of-line)))
@@ -253,8 +254,9 @@
   ;;             (add-to-list 'company-backends
   ;;                          'elpy-company-backend)))
   :config
-  (setq python-shell-interpreter "ipython"
-        python-shell-interpreter-args "--simple-prompt -i")
+  (setq python-shell-interpreter "python2") ;; TODO change back to python3
+  ;; (setq python-shell-interpreter "ipython"
+  ;;       python-shell-interpreter-args "--simple-prompt -i")
   )
 
 (use-package eglot
@@ -320,9 +322,7 @@
 (global-set-key (kbd "C-c ;") #'comment-or-uncomment-region)
 (global-set-key (kbd "M-o")   #'other-window)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
-
-;; Emacs Lisp
-(define-key emacs-lisp-mode-map (kbd "C-c C-s") #'me/comment-section)
+(global-set-key (kbd "C-c C-;") #'me/comment-section)
 
 (provide 'init)
 ;;; init.el ends here
