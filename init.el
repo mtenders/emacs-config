@@ -139,6 +139,7 @@
 (use-package company
   :init
   (add-hook 'prog-mode-hook #'company-mode)
+  (add-hook 'latex-mode-hook #'company-mode)
   :bind (:map company-active-map
               ("C-n" . company-select-next-or-abort)
               ("C-p" . company-select-previous-or-abort))
@@ -160,6 +161,7 @@
 (use-package yasnippet
   :init
   (add-hook 'prog-mode-hook #'yas-minor-mode)
+  (add-hook 'latex-mode-hook #'yas-minor-mode)
   :config
   ;; Enable yasnippet tab completion together with company
   (defun config/company-yasnippet-or-completion ()
@@ -195,6 +197,15 @@
 (use-package flycheck-package
   :after flycheck
   :config (flycheck-package-setup))
+
+;;------------------------------------------------------------------------------
+;; MULTIPLE CURSORS
+;;------------------------------------------------------------------------------
+
+(use-package multiple-cursors
+  :init
+  (global-unset-key (kbd "C-<down-mouse-1>"))
+  (global-set-key (kbd "C-<mouse-1>") 'mc/add-cursor-on-click))
 
 ;;------------------------------------------------------------------------------
 ;; TERMINAL
@@ -294,11 +305,26 @@
   (add-hook 'TeX-after-compilation-finished-functions
             #'TeX-revert-document-buffer)
   (setq TeX-parse-self t ; Enable parse on load.
-        TeX-auto-save t) ; Enable parse on save.
+        TeX-auto-save t ; Enable parse on save.
+        ;; automatically insert braces after sub/superscript in math mode
+        TeX-electric-sub-and-superscript t
+        ;; just save, dont ask me before each compilation
+        TeX-save-query nil)
+  
   ;; Use pdf-tools to open PDF files
-  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+  (setq TeX-source-correlate-mode t
+        TeX-source-correlate-method 'synctex
+        TeX-view-program-selection '((output-pdf "PDF Tools"))
         TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
         TeX-source-correlate-start-server t))
+
+(use-package auctex-latexmk
+  :after auctex
+  :init
+  (setq auctex-latexmk-inherit-TeX-PDF-mode t)
+  (setq TeX-command-default "LatexMk")
+  :config
+  (auctex-latexmk-setup))
 
 
 ;;------------------------------------------------------------------------------
