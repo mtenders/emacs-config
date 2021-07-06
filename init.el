@@ -265,7 +265,7 @@
   ;;             (add-to-list 'company-backends
   ;;                          'elpy-company-backend)))
   :config
-  (setq python-shell-interpreter "python2") ;; TODO change back to python3
+  (setq python-shell-interpreter "python") ;; TODO change back to python3
   ;; (setq python-shell-interpreter "ipython"
   ;;       python-shell-interpreter-args "--simple-prompt -i")
   )
@@ -312,11 +312,12 @@
         TeX-save-query nil)
   
   ;; Use pdf-tools to open PDF files
-  (setq TeX-source-correlate-mode t
-        TeX-source-correlate-method 'synctex
-        TeX-view-program-selection '((output-pdf "PDF Tools"))
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+        ;; TeX-source-correlate-mode t
+        ;; TeX-source-correlate-method 'synctex
         TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
-        TeX-source-correlate-start-server t))
+        ;; TeX-source-correlate-start-server t
+        ))
 
 (use-package auctex-latexmk
   :after auctex
