@@ -30,7 +30,7 @@
  ("let-alist" . "6708ec0b2e6dff80ff5b64698aa009d9070a2ed2")
  ("magit" . "7b46191dedba053f1c44d5f13d4283860e26cbd6")
  ("markdown-mode" . "f28e263b915d48ee9757990da1cdd160b355cb8c")
- ("melpa" . "2742abfd12a3d10c1149f867233dfa2b2ab0d1dd")
+ ("melpa" . "25f776e108d31f8f2e4626cf931c1049e7187a0b")
  ("multiple-cursors.el" . "616fbdd3696f99d85660ad57ebbb0c44d6c7f426")
  ("nix-mode" . "3cca5b6527a69c4701394f424726282a1462ede3")
  ("nix-update-el" . "fc6c39c2da3fcfa62f4796816c084a6389c8b6e7")
