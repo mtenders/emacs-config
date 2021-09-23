@@ -219,6 +219,34 @@
 
 
 ;;------------------------------------------------------------------------------
+;; ORG-MODE
+;;------------------------------------------------------------------------------
+
+(use-package jupyter
+  :init
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (python . t)
+     (jupyter . t)))
+  ;; Show images
+  (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images)
+  ;; Switch off confirmation
+  (setq org-confirm-babel-evaluate nil)
+
+  (setq org-src-tab-acts-natively t)
+  ;; Enable setting the size of inline images
+  (setq org-image-actual-width nil))
+
+(use-package org-bullets
+  :hook (org-mode . (lambda () (org-bullets-mode 1))))
+
+
+;; Access org-structure-templates with "<KEY"
+(require 'org-tempo)
+(add-to-list 'org-structure-template-alist '("sp" . "src jupyter-python :session py"))
+
+;;------------------------------------------------------------------------------
 ;; ORG-REVEAL
 ;;------------------------------------------------------------------------------
 
