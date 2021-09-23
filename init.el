@@ -100,6 +100,9 @@
 ;;; Prevent Extraneous Tabs
 (setq-default indent-tabs-mode nil)
 
+;; Don't show warnings all the time
+(setq warning-minimum-level :error)
+
 ;; Use y or n not yes or no.
 (defalias 'yes-or-no-p 'y-or-n-p)
 
