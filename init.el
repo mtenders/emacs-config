@@ -222,6 +222,12 @@
 ;; ORG-MODE
 ;;------------------------------------------------------------------------------
 
+(use-package org-appear
+  :hook (org-mode . org-appear-mode))
+
+(use-package org-bullets
+  :hook (org-mode . (lambda () (org-bullets-mode 1))))
+
 (use-package jupyter
   :init
   (org-babel-do-load-languages
@@ -237,10 +243,6 @@
   (setq org-src-tab-acts-natively t)
   ;; Enable setting the size of inline images
   (setq org-image-actual-width nil))
-
-(use-package org-bullets
-  :hook (org-mode . (lambda () (org-bullets-mode 1))))
-
 
 ;; Access org-structure-templates with "<KEY"
 (require 'org-tempo)
