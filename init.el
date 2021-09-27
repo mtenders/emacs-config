@@ -134,6 +134,10 @@
 (setq-default fill-column 80)
 ;; Automatic line breaks in prog-mode
 (add-hook 'prog-mode-hook #'turn-on-auto-fill)
+;; Automatic line breaks with different right margin in org-mode
+(add-hook 'org-mode-hook (lambda ()
+                            (set-fill-column 110)))
+(add-hook 'org-mode-hook #'turn-on-auto-fill)
 
 ;;------------------------------------------------------------------------------
 ;; AUTOCOMPLETION
@@ -222,11 +226,17 @@
 ;; ORG-MODE
 ;;------------------------------------------------------------------------------
 
+(setq org-hide-emphasis-markers t)
+
 (use-package org-appear
   :hook (org-mode . org-appear-mode))
 
 (use-package org-bullets
   :hook (org-mode . (lambda () (org-bullets-mode 1))))
+
+;; Automatically show latex fragments
+(use-package org-fragtog
+  :hook (org-mode . org-fragtog-mode))
 
 (use-package jupyter
   :init
