@@ -258,8 +258,8 @@
 (require 'org-tempo)
 (add-to-list 'org-structure-template-alist '("sp" . "src jupyter-python :session py"))
 
-;; Needed for syntax highlighting in HTML export
-(use-package htmlize)
+;; Enable markdown export of org files
+(require 'ox-md)
 
 ;;------------------------------------------------------------------------------
 ;; ORG-REVEAL
