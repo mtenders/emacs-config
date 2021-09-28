@@ -256,10 +256,19 @@
 
 ;; Access org-structure-templates with "<KEY"
 (require 'org-tempo)
-(add-to-list 'org-structure-template-alist '("sp" . "src jupyter-python :session py"))
+(add-to-list 'org-structure-template-alist
+             '("sp" . "src jupyter-python :session py"))
+(add-to-list 'org-structure-template-alist
+             '("spr" . "src jupyter-python :session py :exports results"))
 
 ;; Enable markdown export of org files
 (require 'ox-md)
+
+;; Export .org to .ipynb
+;; (use-package ox-ipynb
+;;   :straight (ox-ipynb :host github :repo "jkitchin/ox-ipynb"))
+;; (require 'ox-ipynb)
+
 
 ;;------------------------------------------------------------------------------
 ;; ORG-REVEAL
