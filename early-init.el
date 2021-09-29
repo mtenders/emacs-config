@@ -35,6 +35,6 @@
   ;; https://greatscott.se/fonts/alma-mono
     (set-face-attribute 'default nil :family "FiraCode Nerd Font" :height 100))
  ((string-equal system-type "darwin")
-    (set-face-attribute 'default nil :family "Hack" :height 120)))
+  (set-face-attribute 'default nil :family "Hack" :height 120)))
 
 ;;; early-init.el ends here
