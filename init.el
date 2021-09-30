@@ -45,6 +45,7 @@
 (setq straight-use-package-by-default t)
 ;; Make sure to defer as many packages as possible.
 (setq use-package-always-defer t)
+(setq use-package-always-ensure t)
 
 ;;------------------------------------------------------------------------------
 ;; CHANGING DEFAULTS
