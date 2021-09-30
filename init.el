@@ -229,7 +229,8 @@
 
 (use-package org
   :config
-  (setq org-hide-emphasis-markers t))
+  (setq org-hide-emphasis-markers t
+        org-agenda-files '("~/Nextcloud/PhD/Thermal_Photonics/org")))
 
 (use-package org-appear
   :hook (org-mode . org-appear-mode))
