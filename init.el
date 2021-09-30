@@ -267,7 +267,7 @@
   ;; open pdf with system pdf viewer
   (setq bibtex-completion-pdf-open-function
         (lambda (fpath)
-          (start-process "xdg-open" "*xdg-open*" "xdg-open" fpath))))
+          (start-process "evince" "*evince*" "evince" fpath))))
 
 (use-package jupyter
   :init
