@@ -241,6 +241,34 @@
 (use-package org-fragtog
   :hook (org-mode . org-fragtog-mode))
 
+;; Wiki
+(use-package org-wiki
+  :defer nil
+  :straight (org-wiki :host github :repo "caiorss/org-wiki")
+  :init (setq org-wiki-location "~/Nextcloud/PhD/Thermal_Photonics/org"))
+(require 'org-wiki) ; TODO how do you do this with use-package?
+
+;; Reference management
+(use-package org-ref
+  :init
+  (setq reftex-default-bibliography '("~/Nextcloud/PhD/Thermal_Photonics/Bibliography/bibliography.bib"))
+
+  (setq org-ref-bibliography-notes "~/Nextcloud/PhD/Thermal_Photonics/Bibliography/notes.org"
+      org-ref-default-bibliography '("~/Nextcloud/PhD/Thermal_Photonics/Bibliography/bibliography.bib")
+      org-ref-pdf-directory "~/Nextcloud/Zotero-library/") ; Won't work
+  )
+
+(use-package ivy-bibtex
+  :config
+  (setq bibtex-completion-bibliography "~/Nextcloud/PhD/Thermal_Photonics/Bibliography/bibliography.bib"
+        bibtex-completion-pdf-field "file"
+        bibtex-completion-notes-path
+        "~/Nextcloud/PhD/Thermal_Photonics/Bibliography/notes.org")
+  ;; open pdf with system pdf viewer
+  (setq bibtex-completion-pdf-open-function
+        (lambda (fpath)
+          (start-process "xdg-open" "*xdg-open*" "xdg-open" fpath))))
+
 (use-package jupyter
   :init
   (org-babel-do-load-languages
