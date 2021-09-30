@@ -128,7 +128,6 @@
 
 ;; Modeline
 (use-package doom-modeline
-  :ensure t
   :init (doom-modeline-mode 1))
 
 ;; Right margin for automatic linebreaks
@@ -227,7 +226,10 @@
 ;; ORG-MODE
 ;;------------------------------------------------------------------------------
 
-(setq org-hide-emphasis-markers t)
+
+(use-package org
+  :config
+  (setq org-hide-emphasis-markers t))
 
 (use-package org-appear
   :hook (org-mode . org-appear-mode))
@@ -339,7 +341,6 @@
 ;;------------------------------------------------------------------------------
 
 (use-package markdown-mode
-  :ensure t
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
