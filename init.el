@@ -257,6 +257,8 @@
   (setq org-ref-bibliography-notes "~/Nextcloud/PhD/Thermal_Photonics/Bibliography/notes.org"
       org-ref-default-bibliography '("~/Nextcloud/PhD/Thermal_Photonics/Bibliography/bibliography.bib")
       org-ref-pdf-directory "~/Nextcloud/Zotero-library/") ; Won't work
+
+  (setq org-ref-completion-library 'org-ref-ivy-cite)
   )
 
 (use-package ivy-bibtex
