@@ -258,8 +258,20 @@
       org-ref-default-bibliography '("~/Nextcloud/PhD/Thermal_Photonics/Bibliography/bibliography.bib")
       org-ref-pdf-directory "~/Nextcloud/Zotero-library/") ; Won't work
 
-  (setq org-ref-completion-library 'org-ref-ivy-cite)
-  )
+  (setq org-ref-completion-library 'org-ref-ivy-cite
+        org-ref-note-title-format
+        "* TODO %t
+ :PROPERTIES:
+  :Custom_ID: %k
+  :AUTHOR: %20a
+  :JOURNAL: %j
+  :YEAR: %y
+  :VOLUME: %v
+  :PAGES: %p
+  :DOI: %D
+  :URL: [[%U]]
+ :END:
+"))
 
 (use-package ivy-bibtex
   :config
@@ -405,7 +417,8 @@
         ;; TeX-source-correlate-method 'synctex
         TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
         ;; TeX-source-correlate-start-server t
-        ))
+        )
+  (setq-default TeX-engine 'luatex))
 
 (use-package auctex-latexmk
   :after auctex
