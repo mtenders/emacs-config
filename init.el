@@ -250,29 +250,6 @@
 (require 'org-wiki) ; TODO how do you do this with use-package?
 
 ;; Reference management
-(use-package org-ref
-  :init
-  (setq reftex-default-bibliography '("~/Nextcloud/PhD/Thermal_Photonics/Bibliography/bibliography.bib"))
-
-  (setq org-ref-bibliography-notes "~/Nextcloud/PhD/Thermal_Photonics/Bibliography/notes.org"
-      org-ref-default-bibliography '("~/Nextcloud/PhD/Thermal_Photonics/Bibliography/bibliography.bib")
-      org-ref-pdf-directory "~/Nextcloud/Zotero-library/") ; Won't work
-
-  (setq org-ref-completion-library 'org-ref-ivy-cite
-        org-ref-note-title-format
-        "* TODO %t
- :PROPERTIES:
-  :Custom_ID: %k
-  :AUTHOR: %20a
-  :JOURNAL: %j
-  :YEAR: %y
-  :VOLUME: %v
-  :PAGES: %p
-  :DOI: %D
-  :URL: [[%U]]
- :END:
-"))
-
 (use-package ivy-bibtex
   :config
   (setq bibtex-completion-bibliography "~/Nextcloud/PhD/Thermal_Photonics/Bibliography/bibliography.bib"
