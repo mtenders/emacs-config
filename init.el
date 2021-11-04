@@ -259,7 +259,20 @@
   ;; open pdf with system pdf viewer
   (setq bibtex-completion-pdf-open-function
         (lambda (fpath)
-          (start-process "evince" "*evince*" "evince" fpath))))
+          (start-process "evince" "*evince*" "evince" fpath)))
+  (setq bibtex-completion-notes-template-one-file
+        "* TODO ${title}
+ :PROPERTIES:
+  :Custom_ID: ${=key=}
+  :AUTHOR: ${author}
+  :JOURNAL: ${journaltitle}
+  :YEAR: ${year}
+  :VOLUME: ${volume}
+  :PAGES: ${pages}
+  :DOI: ${doi}
+  :URL: [[${url}]]
+ :END:
+"))
 
 (use-package jupyter
   :init
