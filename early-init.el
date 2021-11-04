@@ -29,12 +29,13 @@
 ;; Disable startup screen
 (setq inhibit-startup-screen t)
 
-;; Change font depending on OS
-(cond
- ((string-equal system-type "gnu/linux")
-  ;; https://greatscott.se/fonts/alma-mono
-    (set-face-attribute 'default nil :family "FiraCode Nerd Font" :height 100))
- ((string-equal system-type "darwin")
-  (set-face-attribute 'default nil :family "Hack" :height 120)))
+
+
+;; Set font
+(set-face-attribute 'default nil :family "JuliaMono" :height 100)
+;; other good options:
+;; https://greatscott.se/fonts/alma-mono
+;; "FiraCode Nerd Font"
+
 
 ;;; early-init.el ends here
