@@ -21,8 +21,12 @@
 (defun me/comment-section ()
   "Print fancy comment section."
   (interactive)
-  (let ((seperator (make-string 78 ?-))
-        (comment-no-space (comment-string-strip comment-start 0 1)))
+  (let* ((N
+          (if (boundp 'fill-column) ; Use column width if autofill-mode is used
+              (- fill-column 2)
+            78))
+         (seperator (make-string N ?-))
+         (comment-no-space (comment-string-strip comment-start 0 1)))
     (insert
      (concat "\n"
 	     comment-no-space comment-no-space seperator "\n"
@@ -31,6 +35,7 @@
 	     "\n"))
     (forward-line -2)
     (end-of-line)))
+
 
 (defun find-user-init-file ()
   "Edit the `user-init-file'."
