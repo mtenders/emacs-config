@@ -162,9 +162,9 @@
          company-capf
          company-yasnippet)
         (company-abbrev company-dabbrev company-dabbrev-code)))
-  ; No delay in showing suggestions.
-  (setq company-idle-delay 0
-        company-minimum-prefix-length 1
+  ; Small delay in showing suggestions.
+  (setq company-idle-delay 0.3
+        company-minimum-prefix-length 2
         company-selection-wrap-around t))
 
 (use-package company-box
@@ -223,9 +223,8 @@
 ;; TERMINAL
 ;;------------------------------------------------------------------------------
 
-(use-package vterm
+(use-package vterm  ; Needs to be loaded before julia-snail
   :config (setq vterm-shell "zsh"))
-
 
 ;;------------------------------------------------------------------------------
 ;; ORG-MODE
