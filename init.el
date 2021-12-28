@@ -36,7 +36,6 @@
     (forward-line -2)
     (end-of-line)))
 
-
 (defun find-user-init-file ()
   "Edit the `user-init-file'."
   (interactive)
@@ -344,11 +343,38 @@
 ;; JULIA
 ;;------------------------------------------------------------------------------
 
+(defun julia-snail-copy-repl-region ()
+  "Copy the region (requires transient-mark) to the Julia REPL and evaluate it.
+This is not module-context aware."
+  (interactive)
+  (if (null (use-region-p))
+      (user-error "No region selected")
+    (let* ((block-start (region-beginning))
+           (block-end (region-end))
+           (text (s-trim (buffer-substring-no-properties block-start block-end))))
+      (julia-snail--send-to-repl text)
+      (julia-snail--flash-region (point-at-bol) (point-at-eol)))))
+
 (use-package julia-snail
-  :requires vterm)
+  :requires vterm
+  :config
+  (define-key julia-snail-mode-map (kbd "C-c C-r") #'julia-snail-copy-repl-region))
 
 (use-package julia-mode
   :hook (julia-mode . julia-snail-mode))
+
+(use-package code-cells
+  :hook (julia-mode . code-cells-mode)
+  :config
+  (add-to-list 'code-cells-eval-region-commands '(julia-snail-mode
+                                                  . julia-snail-send-code-cell))
+  (let ((map code-cells-mode-map))
+    (define-key map (kbd "M-p") 'code-cells-backward-cell)
+    (define-key map (kbd "M-n") 'code-cells-forward-cell)
+    (define-key map (kbd "C-c C-c") 'code-cells-eval)
+    (define-key map (kbd "C-c C-;") (lambda () (interactive) (insert "# * ")))
+    ;; Overriding other minor mode bindings requires some insistence...
+    (define-key map [remap jupyter-eval-line-or-region] 'code-cells-eval)))
 
 ;;------------------------------------------------------------------------------
 ;; PYTHON
