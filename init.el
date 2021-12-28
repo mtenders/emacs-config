@@ -102,6 +102,8 @@
 
 ;; Highlight matching parentheses.
 (show-paren-mode 1)
+;; Automatic closing parentheses.
+(electric-pair-mode 1)
 
 ;;; Prevent Extraneous Tabs
 (setq-default indent-tabs-mode nil)
