@@ -357,8 +357,9 @@ This is not module-context aware."
 
 (use-package julia-snail
   :requires vterm
-  :config
-  (define-key julia-snail-mode-map (kbd "C-c C-r") #'julia-snail-copy-repl-region))
+  :bind (([remap julia-snail-send-region] . julia-snail-copy-repl-region)
+         ([remap julia-snail-send-top-level-form] . code-cells-eval)))
+
 
 (use-package julia-mode
   :hook (julia-mode . julia-snail-mode))
@@ -371,7 +372,6 @@ This is not module-context aware."
   (let ((map code-cells-mode-map))
     (define-key map (kbd "M-p") 'code-cells-backward-cell)
     (define-key map (kbd "M-n") 'code-cells-forward-cell)
-    (define-key map (kbd "C-c C-c") 'code-cells-eval)
     (define-key map (kbd "C-c C-;") (lambda () (interactive) (insert "# * ")))
     ;; Overriding other minor mode bindings requires some insistence...
     (define-key map [remap jupyter-eval-line-or-region] 'code-cells-eval)))
