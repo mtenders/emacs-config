@@ -317,6 +317,13 @@
 
 (use-package ox-reveal)
 
+
+;;------------------------------------------------------------------------------
+;; WRITING
+;;------------------------------------------------------------------------------
+
+(use-package academic-phrases)
+
 ;;------------------------------------------------------------------------------
 ;; LANGUAGES
 ;;-----------------------------------------------------------------------------
@@ -402,6 +409,19 @@ This is not module-context aware."
 
 
 ;;------------------------------------------------------------------------------
+;; HASKELL
+;;------------------------------------------------------------------------------
+
+(use-package haskell-mode
+  :hook (haskell-mode . interactive-haskell-mode)
+  :bind ("<f8>" . #'haskell-navigate-imports)
+  :config
+  (setq haskell-stylish-on-save t
+      haskell-process-suggest-remove-import-lines t
+      haskell-process-auto-import-loaded-modules t
+      haskell-process-log t))
+
+;;------------------------------------------------------------------------------
 ;; MARKDOWN
 ;;------------------------------------------------------------------------------
 
@@ -419,7 +439,16 @@ This is not module-context aware."
 (use-package pdf-tools
   :init (pdf-tools-install))
 
+(use-package cdlatex
+  :hook (LaTeX-mode . turn-on-cdlatex)
+  :config
+  (setq cdlatex-env-alist '(("frame" "\\begin{frame}{?}\n\n\\end{frame}\n"
+  nil)))
+  (setq cdlatex-command-alist
+      '(("fra" "Insert frame env" "" cdlatex-environment ("frame") t nil))))
+
 (use-package auctex
+  :hook ((LaTeX-mode . prettify-symbols-mode))
   :bind (:map LaTeX-mode-map
               ("C-c C-g" . pdf-sync-forward-search))
   :init
@@ -440,7 +469,10 @@ This is not module-context aware."
         TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view))
         ;; TeX-source-correlate-start-server t
         )
+  ;; (setq LaTeX-command-style
+  ;;       '(("" "%(PDF)%(latex) %(file-line-error) %(extraopts) %(output-dir) -shell-escape %S%(PDFout)")))
   (setq-default TeX-engine 'luatex))
+
 
 (use-package auctex-latexmk
   :after auctex
