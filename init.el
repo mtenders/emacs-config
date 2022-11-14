@@ -247,23 +247,29 @@
   :config
   (setq org-hide-emphasis-markers t
         org-agenda-files '("~/Nextcloud/PhD/Thermal_Photonics/org"))
-  (add-to-list 'org-latex-packages-alist
-               '("AUTO" "babel" t ("pdflatex")))
-  (add-to-list 'org-latex-packages-alist
-               '("AUTO" "polyglossia" t ("xelatex" "lualatex"))))
-
-(require 'ox-latex)
-(with-eval-after-load "ox-latex"
   (add-to-list 'org-latex-classes
                `("lualatex-koma"
                  ,(concat "[NO-DEFAULT-PACKAGES] [NO-PACKAGES]"
-                          (file-to-string "./preamble.tex")
+                          (file-to-string "~/.config/emacs/preamble.tex")
                           "[EXTRA]")
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+
+;; (with-eval-after-load "ox-latex"
+;;   (add-to-list 'org-latex-classes
+;;                `("lualatex-koma"
+;;                  ,(concat "[NO-DEFAULT-PACKAGES] [NO-PACKAGES]"
+;;                           (file-to-string "./preamble.tex")
+;;                           "[EXTRA]")
+;;                  ("\\section{%s}" . "\\section*{%s}")
+;;                  ("\\subsection{%s}" . "\\subsection*{%s}")
+;;                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+;;                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
+;;                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 (use-package org-appear
   :hook (org-mode . org-appear-mode))
@@ -272,8 +278,8 @@
   :hook (org-mode . (lambda () (org-bullets-mode 1))))
 
 ;; Automatically show latex fragments
-(use-package org-fragtog
-  :hook (org-mode . org-fragtog-mode))
+;; (use-package org-fragtog
+;;   :hook (org-mode . org-fragtog-mode))
 
 ;; Wiki
 ;; load helm, because it's requierd for org-wiki.
@@ -315,6 +321,7 @@
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
+     (latex . t)
      (python . t)
      (jupyter . t)))
   ;; Show images

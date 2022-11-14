@@ -1,0 +1,107 @@
+\documentclass[a4, egregdoesnotlikesansseriftitles]{scrartcl}
+% Avoid widows
+\clubpenalty10000
+\widowpenalty10000
+\displaywidowpenalty=10000
+
+
+
+% Font settingns
+% https://tex.stackexchange.com/questions/82001/microtype-settings-for-dummies
+\usepackage[no-math]{fontspec}
+\newfontfeature{Microtypography}{protrusion=default;expansion=default}
+\setmainfont[
+Microtypography,
+% Ligatures=Rare
+]{Latin Modern Roman} 
+
+\protrudechars=2 % or \pdfprotrudechars=2 and
+\adjustspacing=2 %    \pdfadjustspacing=2 with luatex < v0.85
+\directlua{fonts.protrusions.setups.default.factor=.5}
+
+\usepackage{polyglossia}
+\setdefaultlanguage[variant=british]{english}
+
+\usepackage{graphicx}
+\setkeys{Gin}{width=\textwidth}
+
+\usepackage{lipsum}
+\usepackage{csquotes}
+
+% Defaut packages needed for org
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+
+% Math
+\usepackage{mathtools}
+\let\underbrace\LaTeXunderbrace
+\let\overbrace\LaTeXoverbrace
+\usepackage{siunitx}
+\sisetup{
+  % math-micro = \text{µ}, % apparently removed in this realease
+  % text-micro = µ,
+  separate-uncertainty = true,
+  % round-mode = places,
+  % round-precision = 3,
+  detect-all = true,
+}
+
+
+% Tikz stuff
+\usepackage{tikz}
+\usetikzlibrary{
+  arrows,
+  angles,
+  backgrounds,
+  calc,
+  decorations.markings,
+  decorations.pathmorphing,
+  decorations.text,
+  external,
+  fadings,
+  quotes
+}
+
+
+\tikzset{>=stealth',every on chain/.append style={join},
+  every join/.style={->}, % Nicer arrow tip
+  photon/.style={->,decorate,decoration={snake,amplitude=.2mm,segment
+      length=2mm,post length=.5mm}}, % Photon arrow
+  partial ellipse/.style args={#1:#2:#3}{
+    insert path={+ (#1:#3) arc (#1:#2:#3)}}, % Draw a partial ellipse
+  colorgrad/.style n args={3}{ % color gradient along line
+    postaction={
+    decorate,
+    decoration={
+    markings,
+    mark=between positions 0 and \pgfdecoratedpathlength step 0.5pt with {
+    \pgfmathsetmacro\myval{multiply(
+        divide(
+        \pgfkeysvalueof{/pgf/decoration/mark info/distance from start}, \pgfdecoratedpathlength
+        ),
+        100
+    )};
+    \pgfsetfillcolor{#3!\myval!#2};
+    \pgfpathcircle{\pgfpointorigin}{#1};
+    \pgfusepath{fill};}
+}}}
+}
+
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{units, fillbetween, polar}
+
+% Bibliography
+\usepackage[
+bibstyle = nature, %chem-angew,
+sorting = none,
+backref,
+backrefstyle=three
+]{biblatex}
+
+\usepackage{hyperref}
