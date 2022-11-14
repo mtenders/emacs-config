@@ -41,6 +41,12 @@
   (interactive)
   (find-file user-init-file))
 
+(defun file-to-string (file)
+  "Read FILE and return it as a string."
+  (with-temp-buffer
+    (insert-file-contents file)
+    (buffer-string)))
+
 ;;------------------------------------------------------------------------------
 ;; PACKAGE MANAGMENT
 ;;------------------------------------------------------------------------------
@@ -144,6 +150,11 @@
 (add-hook 'org-mode-hook (lambda ()
                             (set-fill-column 110)))
 (add-hook 'org-mode-hook #'turn-on-auto-fill)
+(add-hook 'org-mode-hook (lambda ()
+           (setq-local electric-pair-inhibit-predicate
+                   `(lambda (c)
+                  (if (char-equal c ?<) t (,electric-pair-inhibit-predicate
+                                           c))))))
 
 ;;------------------------------------------------------------------------------
 ;; AUTOCOMPLETION
@@ -235,7 +246,23 @@
 (use-package org
   :config
   (setq org-hide-emphasis-markers t
-        org-agenda-files '("~/Nextcloud/PhD/Thermal_Photonics/org")))
+        org-agenda-files '("~/Nextcloud/PhD/Thermal_Photonics/org"))
+  (add-to-list 'org-latex-packages-alist
+               '("AUTO" "babel" t ("pdflatex")))
+  (add-to-list 'org-latex-packages-alist
+               '("AUTO" "polyglossia" t ("xelatex" "lualatex"))))
+
+(with-eval-after-load "ox-latex"
+  (add-to-list 'org-latex-classes
+               `("lualatex-koma"
+                 ,(concat "[NO-DEFAULT-PACKAGES] [NO-PACKAGES]"
+                          (file-to-string "./preamble.tex")
+                          "[EXTRA]")
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 (use-package org-appear
   :hook (org-mode . org-appear-mode))
@@ -302,6 +329,10 @@
 (require 'org-tempo)
 (add-to-list 'org-structure-template-alist
              '("sp" . "src jupyter-python :session py"))
+(add-to-list 'org-structure-template-alist
+             '("sj" . "src jupyter-julia :session jl"))
+(add-to-list 'org-structure-template-alist
+             '("sjr" . "src jupyter-julia :session jl :exports results"))
 (add-to-list 'org-structure-template-alist
              '("spr" . "src jupyter-python :session py :exports results"))
 
@@ -534,6 +565,10 @@ This is not module-context aware."
 (global-set-key (kbd "M-o")   #'other-window)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-c C-;") #'me/comment-section)
+
+;; Unset C-z and C-x C-z, because it crashes emacs in GUI mode
+(global-unset-key (kbd "C-z"))
+(global-unset-key (kbd "C-x C-z"))
 
 (provide 'init)
 ;;; init.el ends here
