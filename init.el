@@ -252,6 +252,7 @@
   (add-to-list 'org-latex-packages-alist
                '("AUTO" "polyglossia" t ("xelatex" "lualatex"))))
 
+(require 'ox-latex)
 (with-eval-after-load "ox-latex"
   (add-to-list 'org-latex-classes
                `("lualatex-koma"
