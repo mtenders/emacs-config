@@ -512,14 +512,6 @@ This is not module-context aware."
 (use-package pdf-tools
   :init (pdf-tools-install))
 
-(use-package cdlatex
-  :hook (LaTeX-mode . turn-on-cdlatex)
-  :config
-  (setq cdlatex-env-alist '(("frame" "\\begin{frame}{?}\n\n\\end{frame}\n"
-  nil)))
-  (setq cdlatex-command-alist
-      '(("fra" "Insert frame env" "" cdlatex-environment ("frame") t nil))))
-
 (use-package auctex
   :hook ((LaTeX-mode . prettify-symbols-mode))
   :bind (:map LaTeX-mode-map
