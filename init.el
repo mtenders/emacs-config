@@ -247,16 +247,17 @@
   :config
   (setq org-hide-emphasis-markers t
         org-agenda-files '("~/Nextcloud/PhD/Thermal_Photonics/org"))
-  (add-to-list 'org-latex-classes
-               `("lualatex-koma"
-                 ,(concat "[NO-DEFAULT-PACKAGES] [NO-PACKAGES]"
-                          (file-to-string "~/.config/emacs/preamble.tex")
-                          "[EXTRA]")
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+  (with-eval-after-load "ox-latex"
+    (add-to-list 'org-latex-classes
+                 `("lualatex-koma"
+                   ,(concat "[NO-DEFAULT-PACKAGES] [NO-PACKAGES]"
+                            (file-to-string "~/.config/emacs/preamble.tex")
+                            "[EXTRA]")
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
 
 
 ;; (with-eval-after-load "ox-latex"
@@ -278,7 +279,7 @@
   :hook (org-mode . (lambda () (org-bullets-mode 1))))
 
 ;; Automatically show latex fragments
-;; (use-package org-fragtog
+(use-package org-fragtog)
 ;;   :hook (org-mode . org-fragtog-mode))
 
 ;; Wiki
@@ -293,11 +294,24 @@
 
 ;; Reference management
 (use-package ivy-bibtex
+  :bind (("C-." . ivy-bibtex-with-local-bibliography))
   :config
   (setq bibtex-completion-bibliography "~/Nextcloud/PhD/Thermal_Photonics/Bibliography/bibliography.bib"
         bibtex-completion-pdf-field "file"
         bibtex-completion-notes-path
         "~/Nextcloud/PhD/Thermal_Photonics/Bibliography/notes.org")
+  ;; Use org-cite instead of ebib in org-mode
+  (setq bibtex-completion-format-citation-functions
+  '((org-mode      . bibtex-completion-format-citation-org-cite)
+    (latex-mode    . bibtex-completion-format-citation-cite)
+    (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
+    (default       . bibtex-completion-format-citation-default)))
+  
+  ;; Open org-mode citations with ivy-bibtex
+  (org-cite-register-processor 'my-ivy-bibtex-org-cite-follow
+  :follow (lambda (_ _) (ivy-bibtex)))
+  (setq org-cite-follow-processor 'my-ivy-bibtex-org-cite-follow)
+  
   ;; open pdf with system pdf viewer
   (setq bibtex-completion-pdf-open-function
         (lambda (fpath)
