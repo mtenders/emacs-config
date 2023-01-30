@@ -155,6 +155,10 @@
                    `(lambda (c)
                   (if (char-equal c ?<) t (,electric-pair-inhibit-predicate
                                            c))))))
+;; Same for LaTeX
+(add-hook 'latex-mode-hook (lambda ()
+                            (set-fill-column 110)))
+(add-hook 'latex-mode-hook #'turn-on-auto-fill)
 
 ;;------------------------------------------------------------------------------
 ;; AUTOCOMPLETION
