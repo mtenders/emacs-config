@@ -294,12 +294,16 @@
 
 ;; Reference management
 (use-package ivy-bibtex
-  :bind (("C-." . ivy-bibtex-with-local-bibliography))
+  :bind (("M-p" . ivy-bibtex-with-local-bibliography))
   :config
   (setq bibtex-completion-bibliography "~/Nextcloud/PhD/Thermal_Photonics/Bibliography/bibliography.bib"
         bibtex-completion-pdf-field "file"
         bibtex-completion-notes-path
         "~/Nextcloud/PhD/Thermal_Photonics/Bibliography/notes.org")
+  ;; Make inserting the citation the default behaviour.
+  (setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
+  ;; Don't ask for pre- and postnotes in LaTeX citations.
+  (setq bibtex-completion-cite-prompt-for-optional-arguments nil)
   ;; Use org-cite instead of ebib in org-mode
   (setq bibtex-completion-format-citation-functions
   '((org-mode      . bibtex-completion-format-citation-org-cite)
