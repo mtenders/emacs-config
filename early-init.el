@@ -15,7 +15,7 @@
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
         (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
          'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
@@ -38,8 +38,6 @@
 
 ;; Disable startup screen
 (setq inhibit-startup-screen t)
-
-
 
 ;; Set font
 (set-face-attribute 'default nil :family "JuliaMono" :height 100)
