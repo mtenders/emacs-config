@@ -27,14 +27,14 @@
 (scroll-bar-mode -1)
 
 ;; Remove decorations
-(setq default-frame-alist
-      (append ; Note: if there are any conflicting settings in
-              ; ‘default-frame-alist’, it is the one that comes first that gets
-              ; applied .
-       '((undecorated . t)
-         (drag-internal-border . t)
-         (internal-border-width . 4))
-       default-frame-alist))
+;; (setq default-frame-alist
+;;       (append ; Note: if there are any conflicting settings in
+;;               ; ‘default-frame-alist’, it is the one that comes first that gets
+;;               ; applied .
+;;        '((undecorated . t)
+;;          (drag-internal-border . t)
+;;          (internal-border-width . 4))
+;;        default-frame-alist))
 
 ;; Disable startup screen
 (setq inhibit-startup-screen t)
