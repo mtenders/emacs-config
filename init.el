@@ -334,22 +334,22 @@
  :END:
 "))
 
-(use-package jupyter
-  :init
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-     (latex . t)
-     (python . t)
-     (jupyter . t)))
-  ;; Show images
-  (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images)
-  ;; Switch off confirmation
-  (setq org-confirm-babel-evaluate nil)
+;; (use-package jupyter
+;;   :init
+;;   (org-babel-do-load-languages
+;;    'org-babel-load-languages
+;;    '((emacs-lisp . t)
+;;      (latex . t)
+;;      (python . t)
+;;      (jupyter . t)))
+;;   ;; Show images
+;;   (add-hook 'org-babel-after-execute-hook #'org-redisplay-inline-images)
+;;   ;; Switch off confirmation
+;;   (setq org-confirm-babel-evaluate nil)
 
-  (setq org-src-tab-acts-natively t)
-  ;; Enable setting the size of inline images
-  (setq org-image-actual-width nil))
+;;   (setq org-src-tab-acts-natively t)
+;;   ;; Enable setting the size of inline images
+;;   (setq org-image-actual-width nil))
 
 ;; Access org-structure-templates with "<KEY"
 (require 'org-tempo)
