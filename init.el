@@ -430,7 +430,6 @@
   (add-to-list 'code-cells-eval-region-commands '(julia-snail-mode
                                                   . julia-snail-send-code-cell)))
 
-
 (use-package julia-mode
   :hook (julia-mode . julia-snail-mode)
   :config
