@@ -182,6 +182,10 @@
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
+(use-package company-quickhelp
+  :hook (company-mode . company-quickhelp-mode)
+ )
+
 (use-package yasnippet
   :init
   (add-hook 'prog-mode-hook #'yas-minor-mode)
