@@ -415,9 +415,7 @@
 ;;------------------------------------------------------------------------------
 
 (use-package code-cells
-  :hook (julia-mode . code-cells-mode)
   :config
-
   (let ((map code-cells-mode-map))
     (define-key map "n" (code-cells-speed-key 'code-cells-forward-cell))
     (define-key map "p" (code-cells-speed-key 'code-cells-backward-cell))
@@ -435,7 +433,8 @@
                                                   . julia-snail-send-code-cell)))
 
 (use-package julia-mode
-  :hook (julia-mode . julia-snail-mode)
+  :hook ((julia-mode . julia-snail-mode)
+         (julia-mode . code-cells-mode))
   :config
   (defun /julia-mode-hook ()
     (subword-mode)
@@ -445,21 +444,9 @@
 
 (use-package julia-snail
   :requires vterm
+  :custom
+  (julia-snail-extensions '(formatter))
   :config
-  (defun julia-snail-copy-repl-region ()
-    "Copy the region (requires transient-mark) to the Julia REPL and evaluate it.
-This is not module-context aware."
-    (interactive)
-    (if (null (use-region-p))
-        (user-error "No region selected")
-      (let* ((block-start (region-beginning))
-             (block-end (region-end))
-             (text (s-trim (buffer-substring-no-properties block-start block-end))))
-        (julia-snail--send-to-repl text)
-        (julia-snail--flash-region (point-at-bol) (point-at-eol)))))
-  
-  (define-key julia-snail-mode-map [remap julia-snail-send-region]
-              'julia-snail-copy-repl-region)
   (define-key julia-snail-mode-map [remap julia-snail-send-top-level-form]
               'code-cells-eval))
 
