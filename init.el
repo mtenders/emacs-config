@@ -314,6 +314,9 @@
     (latex-mode    . bibtex-completion-format-citation-cite)
     (markdown-mode . bibtex-completion-format-citation-pandoc-citeproc)
     (default       . bibtex-completion-format-citation-default)))
+  ;; Default latex cite command
+  (setq bibtex-completion-cite-default-command "autocite")
+
   
   ;; Open org-mode citations with ivy-bibtex
   (org-cite-register-processor 'my-ivy-bibtex-org-cite-follow
