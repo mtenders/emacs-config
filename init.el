@@ -136,7 +136,7 @@
   ;; Global settings
   (setq doom-themes-enable-bold t
 	doom-themes-enable-italic t)
-  (load-theme 'doom-dracula t))
+  (load-theme 'doom-ayu-dark t))
 
 ;; Modeline
 (use-package doom-modeline

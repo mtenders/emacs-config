@@ -40,7 +40,7 @@
 (setq inhibit-startup-screen t)
 
 ;; Set font
-(set-face-attribute 'default nil :family "JuliaMono" :height 100)
+(set-face-attribute 'default nil :family "JetBrainsMono NF" :height 100)
 ;; other good options:
 ;; https://greatscott.se/fonts/alma-mono
 ;; "FiraCode Nerd Font"
