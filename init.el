@@ -517,8 +517,6 @@
 
 (use-package auctex
   :hook ((LaTeX-mode . prettify-symbols-mode))
-  :bind (:map LaTeX-mode-map
-              ("C-c C-g" . pdf-sync-forward-search))
   :init
   ;; Update PDF buffers after successful LaTeX runs
   (add-hook 'TeX-after-compilation-finished-functions
