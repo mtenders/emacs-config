@@ -130,13 +130,12 @@
 ;;------------------------------------------------------------------------------
 
 ;; Theme
-(use-package doom-themes
+(use-package adwaita-dark-theme
   :demand t
   :config
   ;; Global settings
-  (setq doom-themes-enable-bold t
-	doom-themes-enable-italic t)
-  (load-theme 'doom-ayu-dark t))
+  (load-theme 'adwaita-dark t)
+  (adwaita-dark-theme-arrow-fringe-bmp-enable))
 
 ;; Modeline
 (use-package doom-modeline
