@@ -135,7 +135,9 @@
   :config
   ;; Global settings
   (load-theme 'adwaita-dark t)
-  (adwaita-dark-theme-arrow-fringe-bmp-enable))
+  (adwaita-dark-theme-arrow-fringe-bmp-enable)
+  (set-background-color "grey19")
+  )
 
 ;; Modeline
 (use-package doom-modeline
