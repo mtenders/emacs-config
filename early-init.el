@@ -40,7 +40,12 @@
 (setq inhibit-startup-screen t)
 
 ;; Set font
-(set-face-attribute 'default nil :family "JetBrainsMono NF" :height 100)
+
+;; Default
+;; (set-face-attribute 'default nil :family "JetBrainsMono NF" :height 100)
+
+;; Better support for greek letters (nu vs v).
+(set-face-attribute 'default nil :family "CaskaydiaCove NF" :height 100)
 ;; other good options:
 ;; https://greatscott.se/fonts/alma-mono
 ;; "FiraCode Nerd Font"
