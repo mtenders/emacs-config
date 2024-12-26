@@ -141,7 +141,9 @@
 
 ;; Modeline
 (use-package doom-modeline
-  :init (doom-modeline-mode 1))
+  :init (doom-modeline-mode 1)
+  :config
+  (setq doom-modeline-bar-width 10))
 
 ;; Right margin for automatic linebreaks
 (setq-default fill-column 80)
