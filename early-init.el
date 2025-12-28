@@ -39,16 +39,20 @@
 ;; Disable startup screen
 (setq inhibit-startup-screen t)
 
-;; Set font
-
-;; Default
-;; (set-face-attribute 'default nil :family "JetBrainsMono NF" :height 100)
-
-;; Better support for greek letters (nu vs v).
-(set-face-attribute 'default nil :family "CaskaydiaCove NF" :height 100)
-;; other good options:
-;; https://greatscott.se/fonts/alma-mono
-;; "FiraCode Nerd Font"
-
+;; OS specific settings
+(cond
+ ((string-equal system-type "gnu/linux")
+  ;; Set font
+  (set-face-attribute 'default nil :family "CaskaydiaCove NF" :height 100))
+ ((string-equal system-type "darwin")
+  ;; Set font
+  (set-face-attribute 'default nil :family "JetBrainsMono NF" :height 140)
+  ;; MacOS appearance
+  (setq frame-resize-pixelwise t)
+  (setq default-frame-alist (append '(
+                                      (ns-appearance . dark)
+                                      (ns-transparent-titlebar . t))
+                                    default-frame-alist))
+  ))
 
 ;;; early-init.el ends here

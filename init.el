@@ -61,6 +61,12 @@
 ;; CHANGING DEFAULTS
 ;;------------------------------------------------------------------------------
 
+;; Set correct locale
+(if (string-equal system-type "darwin")
+    (setenv "LANG" "en_UK.UTF-8"))
+
+
+
 ;; Lexical bindings
 (setq safe-local-variable-values '((lexical-bindings . t)))
 
@@ -102,9 +108,8 @@
         ivy-count-format "(%d/%d) "
         ivy-initial-inputs-alist nil)) ; remove initial ^ input.
 
-(use-package which-key
-  :init (which-key-mode))
-
+;; Which-key
+(which-key-mode 1)
 ;; Highlight matching parentheses.
 (show-paren-mode 1)
 ;; Automatic closing parentheses.
@@ -130,20 +135,37 @@
 ;;------------------------------------------------------------------------------
 
 ;; Theme
-(use-package adwaita-dark-theme
-  :demand t
-  :config
-  ;; Global settings
-  (load-theme 'adwaita-dark t)
-  (adwaita-dark-theme-arrow-fringe-bmp-enable)
-  (set-background-color "grey19")
-  )
+
+(cond
+ ((string-equal system-type "gnu/linux")
+  (use-package adwaita-dark-theme
+    :demand t
+    :config
+    ;; Global settings
+    (load-theme 'adwaita-dark t)
+    (adwaita-dark-theme-arrow-fringe-bmp-enable)
+    (set-background-color "grey19")))
+ ((string-equal system-type "darwin")
+  (use-package nerd-icons
+    :custom
+    ;; The Nerd Font you want to use in GUI
+    ;; "Symbols Nerd Font Mono" is the default and is recommended
+    ;; but you can use any other Nerd Font if you want
+    (nerd-icons-font-family "JetBrainsMono NF")
+    )
+  
+  (use-package doom-themes
+    :demand t
+    :config
+    (load-theme 'doom-one t)
+    )))
 
 ;; Modeline
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
   :config
   (setq doom-modeline-bar-width 10))
+
 
 ;; Right margin for automatic linebreaks
 (setq-default fill-column 80)
@@ -264,26 +286,13 @@
     (add-to-list 'org-latex-classes
                  `("lualatex-koma"
                    ,(concat "[NO-DEFAULT-PACKAGES] [NO-PACKAGES]"
-                            (file-to-string "~/.config/emacs/preamble.tex")
+                            (file-to-string "./preamble.tex")
                             "[EXTRA]")
                    ("\\section{%s}" . "\\section*{%s}")
                    ("\\subsection{%s}" . "\\subsection*{%s}")
                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
-
-
-;; (with-eval-after-load "ox-latex"
-;;   (add-to-list 'org-latex-classes
-;;                `("lualatex-koma"
-;;                  ,(concat "[NO-DEFAULT-PACKAGES] [NO-PACKAGES]"
-;;                           (file-to-string "./preamble.tex")
-;;                           "[EXTRA]")
-;;                  ("\\section{%s}" . "\\section*{%s}")
-;;                  ("\\subsection{%s}" . "\\subsection*{%s}")
-;;                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-;;                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
-;;                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 (use-package org-appear
   :hook (org-mode . org-appear-mode))
