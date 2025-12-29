@@ -172,8 +172,8 @@
 ;; Automatic line breaks in prog-mode
 (add-hook 'prog-mode-hook #'turn-on-auto-fill)
 ;; Automatic line breaks with different right margin in org-mode
-(add-hook 'org-mode-hook (lambda ()
-                            (set-fill-column 110)))
+;; (add-hook 'org-mode-hook (lambda ()
+;;                             (set-fill-column 110)))
 (add-hook 'org-mode-hook #'turn-on-auto-fill)
 (add-hook 'org-mode-hook (lambda ()
            (setq-local electric-pair-inhibit-predicate
