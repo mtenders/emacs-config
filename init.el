@@ -136,29 +136,28 @@
 
 ;; Theme
 
-(cond
- ((string-equal system-type "gnu/linux")
-  (use-package adwaita-dark-theme
-    :demand t
-    :config
-    ;; Global settings
-    (load-theme 'adwaita-dark t)
+(use-package adwaita-dark-theme
+  :demand t
+  :config
+  (if (string-equal system-type "gnu/linux")
+      ;; Global settings
+      (load-theme 'adwaita-dark t)
     (adwaita-dark-theme-arrow-fringe-bmp-enable)
     (set-background-color "grey19")))
- ((string-equal system-type "darwin")
-  (use-package nerd-icons
-    :custom
-    ;; The Nerd Font you want to use in GUI
-    ;; "Symbols Nerd Font Mono" is the default and is recommended
-    ;; but you can use any other Nerd Font if you want
-    (nerd-icons-font-family "JetBrainsMono NF")
-    )
-  
-  (use-package doom-themes
-    :demand t
-    :config
-    (load-theme 'doom-one t)
-    )))
+
+(use-package nerd-icons
+  :custom
+  (if (string-equal system-type "darwin")
+      ;; The Nerd Font you want to use in GUI
+      ;; "Symbols Nerd Font Mono" is the default and is recommended
+      ;; but you can use any other Nerd Font if you want
+      (nerd-icons-font-family "JetBrainsMono NF")))
+
+(use-package doom-themes
+  :demand t
+  :config
+  (if (string-equal system-type "darwin")
+      (load-theme 'doom-one t)))
 
 ;; Modeline
 (use-package doom-modeline
