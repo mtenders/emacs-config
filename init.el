@@ -534,9 +534,10 @@ src=\"http://ndossougbe.github.io/strapdown/dist/strapdown.js\"></script></html>
 ;;------------------------------------------------------------------------------
 
 (use-package pdf-tools
+  :hook (pdf-view-mode . pdf-view-roll-minor-mode)
   :init
-  (pdf-tools-install)
-  (add-hook 'pdf-view-mode-hook #'pdf-view-roll-minor-mode))
+  (pdf-tools-install))
+
 
 (use-package auctex
   :hook ((LaTeX-mode . prettify-symbols-mode))
