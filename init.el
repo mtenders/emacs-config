@@ -540,7 +540,7 @@ src=\"http://ndossougbe.github.io/strapdown/dist/strapdown.js\"></script></html>
 
 
 (use-package auctex
-  :hook ((LaTeX-mode . prettify-symbols-mode))
+  :hook ((LaTeX-mode . company-mode))
   :init
   ;; Update PDF buffers after successful LaTeX runs
   (add-hook 'TeX-after-compilation-finished-functions
