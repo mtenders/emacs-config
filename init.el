@@ -147,11 +147,12 @@
 
 (use-package nerd-icons
   :custom
-  (if (string-equal system-type "darwin")
+  ;; (if (string-equal system-type "darwin")
       ;; The Nerd Font you want to use in GUI
       ;; "Symbols Nerd Font Mono" is the default and is recommended
       ;; but you can use any other Nerd Font if you want
-      (nerd-icons-font-family "JetBrainsMono NF")))
+  (nerd-icons-font-family "JetBrainsMono NF")
+  )
 
 (use-package doom-themes
   :demand t
@@ -488,8 +489,11 @@
   )
 
 (use-package eglot
+  :hook
+  (python-mode . eglot-ensure)
   :config
-  (add-hook 'python-mode-hook #'eglot-ensure))
+  (add-to-list 'eglot-server-programs
+               '(text-mode . ("harper-ls" "--stdio"))))
 
 ;; Python code formatter
 (use-package blacken)
