@@ -63,7 +63,7 @@
 
 ;; Set correct locale
 (if (string-equal system-type "darwin")
-    (setenv "LANG" "en_UK.UTF-8"))
+    (setenv "LANG" "en_GB.UTF-8"))
 
 
 
