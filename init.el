@@ -493,9 +493,7 @@
   (python-mode . eglot-ensure)
   :config
   (add-to-list 'eglot-server-programs
-               '(text-mode . ("harper-ls" "--stdio")))
-  (add-to-list 'eglot-server-programs
-               '(LaTeX-mode . ("harper-ls" "--stdio"))))
+               '(text-mode . ("harper-ls" "--stdio"))))
 
 ;; Python code formatter
 (use-package blacken)
