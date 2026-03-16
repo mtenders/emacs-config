@@ -285,9 +285,9 @@
   (with-eval-after-load "ox-latex"
     (add-to-list 'org-latex-classes
                  `("lualatex-koma"
-                   ,(concat "[NO-DEFAULT-PACKAGES] [NO-PACKAGES]"
-                            (file-to-string "./preamble.tex")
-                            "[EXTRA]")
+                   ;; ,(concat "[NO-DEFAULT-PACKAGES] [NO-PACKAGES]"
+                   ;;          (file-to-string "./preamble.tex")
+                   ;;          "[EXTRA]")
                    ("\\section{%s}" . "\\section*{%s}")
                    ("\\subsection{%s}" . "\\subsection*{%s}")
                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
