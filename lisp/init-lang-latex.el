@@ -7,7 +7,10 @@
 (use-package pdf-tools
   :hook (pdf-view-mode . pdf-view-roll-minor-mode)
   :init
-  (pdf-tools-install))
+  ;; pdf-loader-install only sets up the autoload that triggers real
+  ;; pdf-tools-install the first time a PDF is actually opened, instead of
+  ;; paying that cost on every startup regardless of whether one is.
+  (pdf-loader-install))
 
 (use-package auctex
   :init

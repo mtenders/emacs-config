@@ -49,7 +49,12 @@
  ("let-alist" . "a331a39b02da002c6c570c4960106454f88a99a5")
  ("llama" . "4d4024048053b898a01521046e0f063ee47615b0")
  ("magit" . "659f89955cf60fe3d4326d881c412df06c69680d")
- ("marginalia" . "d76d7e36185ab552240c14fb08f7abcbf9a2910c")
+ ;; Pinned before "Use with-memoization" (d76d7e3), which switched
+ ;; marginalia--time-relative to (compat-call seconds-to-string ...) --
+ ;; a shim `compat' doesn't actually provide yet, so it falls through to
+ ;; Emacs's native 1-arg seconds-to-string and errors with 3 args on any
+ ;; Emacs < 31. Unpin once upstream compat ships the shim.
+ ("marginalia" . "4a0628dfdf944a5d307d31d2a514825cc5386986")
  ("markdown-mode" . "76cb4ffecfdf95ee769e5cb4608e04202c3c1521")
  ("melpa" . "ce48c8475144800fc1150607353df958afadf2ed")
  ("multiple-cursors.el" . "94b8b07a4bab87f803123723b68227565429dfa1")
@@ -85,7 +90,14 @@
  ("transient" . "0cacc84ff0c7df126e194666ff8b8a1e6082e796")
  ("treesit-auto" . "3106c739c2a84bec2cb671997fe074e5dd5dd967")
  ("use-package" . "4b3484b550431f74ab9cda060a8dc983fe482131")
- ("vertico" . "ccf98566f1940f96f5b8ba21f4ea9db370a177a4")
+ ;; LOCAL commit, not on any remote branch: cherry-picks a one-line fix
+ ;; (incf -> cl-incf, straight/repos/vertico commit 1ae72f3) on top of
+ ;; upstream HEAD. Upstream commit 9e09fdd ("Require Compat 31") typo'd
+ ;; cl-incf -> incf in vertico--arrange-candidates and is still unfixed on
+ ;; main as of this pin. If straight/repos/vertico is ever deleted and
+ ;; re-cloned, this hash won't resolve -- reapply the one-line fix (or
+ ;; drop this pin if upstream has fixed it by then).
+ ("vertico" . "1ae72f3b22b7b779e95c167ba0053bd63dbf9340")
  ("wfnames" . "d8839fa42a24f7c781cd2d8c3f40eda31faa19be")
  ("with-editor" . "5021ef6885381cf5b2852f7a3f67ca8c4be1dca2")
  ("xref" . "cb5edcfbd316602e927c0ddd92872473ed44b815")

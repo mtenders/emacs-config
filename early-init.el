@@ -11,6 +11,15 @@
 ;; Disable package.el; straight.el manages packages instead.
 (setq package-enable-at-startup nil)
 
+;; Default (find-at-startup) shells out to find(1) across every cloned repo
+;; on every startup to detect local modifications -- straight's own docs
+;; call this out as slow. check-on-save has zero startup cost and still
+;; catches changes made by editing files inside Emacs (which covers how
+;; local package patches get made here); it just won't notice changes made
+;; outside Emacs (e.g. a manual `git pull` in a repo) until the next save.
+;; Must be set before straight's bootstrap runs.
+(setq straight-check-for-modifications '(check-on-save))
+
 ;; bootstrap straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
