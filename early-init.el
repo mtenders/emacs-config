@@ -1,10 +1,14 @@
-;;; early-init.el --- Early init file
+;;; early-init.el --- Early init file -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
 ;;; Code:
 
-;; Disable package.el
+;; Raise the GC threshold for the duration of startup; init-defaults.el hands
+;; steady-state collection off to gcmh once packages are loaded.
+(setq gc-cons-threshold most-positive-fixnum)
+
+;; Disable package.el; straight.el manages packages instead.
 (setq package-enable-at-startup nil)
 
 ;; bootstrap straight.el
